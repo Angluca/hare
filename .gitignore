@@ -1,3 +1,6 @@
-cache
 config.mk
-hare
+cache
+bin
+*.1
+*.5
+docs/html

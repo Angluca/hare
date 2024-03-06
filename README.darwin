@@ -1,0 +1,69 @@
+
+# install:
+
+# Download the file from ftp://ftp.boulder.nist.gov/pub/time/leap-seconds.list,
+# and move it to /var/db/ntpd.leap-seconds.list
+
+export HARECACHE=$HOME/.cache/hare
+#export XDG_CACHE_HOME=$HARECACHE
+export TMPDIR=$HARECACHE/hare.tmp
+
+export HAREC_SRC=$HOME/Github/harec
+export QBE=$HAREC_SRC/rt/+darwin/qbe.sh
+export PATH=${PATH}:~/SDK/Hares/hare/bin
+
+ln -sf configs/darwin.mk config.mk
+
+./scripts/genbootstrap
+# make bootstrap
+
+make
+make check
+make docs/html
+sudo -E make install
+
+
+###############################################################################
+make:       HARECACHE XDG_CACHE_HOME HAREC_SRC
+make check: XDG_CACHE_HOME
+make clean: HARECACHE
+./scripts/genbootstrap: HARECACHE QBE
+
+                default     config.mk   Makefile    makefiles/* docs(run,test --> build)
+HAREPATH        "."         √           √                       build,deps,doc
+HARECACHE       ".cache"    √           √           √           build,cache
+
+NO_COLOR        ""                                              build,deps,doc
+HAREC_COLOR     "1"                                             build
+HAREDOC_COLORS  ""                                              doc
+LESS            "FRX"
+MORE            "R"
+PAGER
+
+HAREC           "harec"     √ ∆         √           √           build
+QBE             "qbe"       √ ∆         √                       build
+AS              "as"        √ ∆         √           √           build
+LD              "ld"        √ ∆         √                       build
+CC              "cc"        √ ∆                                 build
+* AR
+
+HARECFLAGS                  √           √           √           build
+QBEFLAGS                    √           √                       build
+ASFLAGS                     √           √           √           build
+LDLINKFLAGS                 √           √                       build
+LDFLAGS                                                         build
+* ARFLAGS
+
+HARE_TD_<mod?>                                      √           design.txt
+
+XDG_CONFIG_HOME ".config"
+XDG_CACHE_HOME  ".cache"                                        build,cache,design.txt
+XDG_DATA_HOME   ".local/share"
+XDG_STATE_HOME  ".local/state"
+XDG_RUNTIME_DIR
+
+TMPDIR          "/tmp"
+HOME
+PATH
+TZ
+###############################################################################
