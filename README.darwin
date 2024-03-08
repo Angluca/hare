@@ -4,11 +4,9 @@
 # Download the file from ftp://ftp.boulder.nist.gov/pub/time/leap-seconds.list,
 # and move it to /var/db/ntpd.leap-seconds.list
 
-export HARECACHE=$HOME/.cache/hare
-#export XDG_CACHE_HOME=$HARECACHE
-export TMPDIR=$HARECACHE/hare.tmp
-
-export HAREC_SRC=$HOME/Github/harec
+# TMPDIR # not need change
+export HARECACHE=~/.cache/hare
+export HAREC_SRC=~/Hares/harec
 export QBE=$HAREC_SRC/rt/+darwin/qbe.sh
 export PATH=${PATH}:~/SDK/Hares/hare/bin
 
@@ -62,7 +60,7 @@ XDG_DATA_HOME   ".local/share"
 XDG_STATE_HOME  ".local/state"
 XDG_RUNTIME_DIR
 
-TMPDIR          "/tmp"
+TMPDIR          system default
 HOME
 PATH
 TZ

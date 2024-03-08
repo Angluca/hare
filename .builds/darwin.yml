@@ -1,0 +1,33 @@
+image: darwin/latest
+sources:
+- https://github.com/hshq/hare
+- https://github.com/angluca/harec
+- git://c9x.me/qbe.git
+packages:
+- binutils
+- scdoc
+tasks:
+- qbe: |
+    cd qbe
+    make -j2 PREFIX=/usr check
+    sudo make install PREFIX=/usr
+- harec: |
+    cd harec
+    export HAREC_SRC=.
+    ln -sf configs/darwin.mk config.mk
+    make -j2
+    make check
+    sudo -E make install
+- hare: |
+    cd hare
+    export HARECACHE=<...>
+    #export XDG_CACHE_HOME=$HARECACHE
+    #export TMPDIR=<...>
+    export HAREC_SRC=<...>
+    export QBE=$HAREC_SRC/rt/+darwin/qbe.sh
+    ln -sf configs/darwin.mk config.mk
+    make -j2
+    sudo -E make install
+- check: |
+    cd hare
+    make -j2 check

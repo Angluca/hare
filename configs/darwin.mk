@@ -13,10 +13,10 @@ HARECFLAGS =
 QBEFLAGS =
 ASFLAGS =
 # LDLINKFLAGS = --gc-sections -z noexecstack
-LDLINKFLAGS =
+LDLINKFLAGS = -dead_strip -z noexecstack
 
 # commands used by the build script
-HAREC = $(HAREC_SRC)/bin/harec
+HAREC = harec
 QBE = $(HAREC_SRC)/rt/+darwin/qbe.sh
 AS =  $(HAREC_SRC)/rt/+darwin/as.sh
 CC = /usr/bin/cc
@@ -25,9 +25,8 @@ SCDOC = scdoc
 
 # build locations
 # HARECACHE = .cache
-HARECACHE = $(HOME)/.cache/hare
+HARECACHE = cache
 BINOUT = bin
-TMPDIR = $(HARECACHE)/hare.tmp
 
 # variables that will be embedded in the binary with -D definitions
 HAREPATH = $(SRCDIR)/hare/stdlib:$(SRCDIR)/hare/third-party
