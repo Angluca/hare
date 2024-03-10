@@ -13,7 +13,8 @@ HARECFLAGS =
 QBEFLAGS =
 ASFLAGS =
 # LDLINKFLAGS = --gc-sections -z noexecstack
-LDLINKFLAGS = -dead_strip -z noexecstack
+#LDLINKFLAGS = -dead_strip
+LDLINKFLAGS =
 
 # commands used by the build script
 HAREC = harec

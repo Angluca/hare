@@ -113,13 +113,15 @@ fn get_flags(ctx: *context, t: *task) ([]str | error) = {
 			append(flags, strings::dup("-L"));
 			append(flags, strings::dup(ctx.libdirs[i]));
 		};
-		if (ctx.libc) {
-			append(flags, strings::dup("-Wl,--gc-sections"));
-		} else {
-			append(flags, strings::dup("--gc-sections"));
-			append(flags, strings::dup("-z"));
-			append(flags, strings::dup("noexecstack"));
-		};
+		//if (ctx.libc) {
+			////append(flags, strings::dup("-Wl,--gc-sections"));
+			//append(flags, strings::dup("-Wl,-dead_strip"));
+		//} else {
+			////append(flags, strings::dup("--gc-sections"));
+			//append(flags, strings::dup("-dead_strip"));
+			//append(flags, strings::dup("-z"));
+			//append(flags, strings::dup("noexecstack"));
+		//};
 		return flags;
 	};
 
@@ -259,10 +261,14 @@ fn get_args(ctx: *context, tmp: str, flags: []str, t: *task) []str = {
 	case stage::BIN =>
 		for (let i = 0z; i < len(ctx.mods); i += 1) {
 			let srcs = ctx.mods[i].srcs;
-			for (let i = 0z; i < len(srcs.sc); i += 1) {
-				append(args, strings::dup("-T"));
-				append(args, strings::dup(srcs.sc[i]));
-			};
+			//for (let i = 0z; i < len(srcs.sc); i += 1) {
+				////if(strings::contains(srcs.sc[i], "stub.hare.sc")) {
+					////continue;
+				////};
+				//append(args, strings::dup("-T"));
+				//append(args, strings::dup(srcs.sc[i]));
+				//fmt::printf("-T {}\n", srcs.sc[i])!;
+			//};
 			append(args, get_cache(ctx, i, stage::O)!);
 			for (let i = 0z; i < len(srcs.o); i += 1) {
 				append(args, strings::dup(srcs.o[i]));
@@ -272,9 +278,10 @@ fn get_args(ctx: *context, tmp: str, flags: []str, t: *task) []str = {
 		// gc-sections again after enabling it in get_flags(); it looks
 		// like leaving this enabled gets us SIGILL in libc (musl). this
 		// is not broken on other platforms such as OpenBSD
-		if (ctx.libc) {
-			append(args, strings::dup("-Wl,--no-gc-sections"));
-		};
+		//if (ctx.libc) {
+			//append(args, strings::dup("-Wl,--no-gc-sections"));
+			//append(args, strings::dup("-Wl,-dead_strip"));
+		//};
 		for (let i = 0z; i < len(ctx.libs); i += 1) {
 			append(args, strings::dup("-l"));
 			append(args, strings::dup(ctx.libs[i]));
