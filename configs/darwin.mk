@@ -1,5 +1,6 @@
 # install locations
-PREFIX = $(HOME)/SDK/Hares/hare
+#HARE_PREFIX = /usr/local
+PREFIX = $(HARE_PREFIX)
 BINDIR = $(PREFIX)/bin
 MANDIR = $(PREFIX)/share/man
 SRCDIR = $(PREFIX)/src
@@ -25,7 +26,6 @@ LD =  $(HAREC_SRC)/rt/+darwin/ld.sh
 SCDOC = scdoc
 
 # build locations
-# HARECACHE = .cache
 HARECACHE = cache
 BINOUT = bin
 

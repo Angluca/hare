@@ -113,9 +113,10 @@ fn get_flags(ctx: *context, t: *task) ([]str | error) = {
 			append(flags, strings::dup("-L"));
 			append(flags, strings::dup(ctx.libdirs[i]));
 		};
-		//if (ctx.libc) {
-			////append(flags, strings::dup("-Wl,--gc-sections"));
-			//append(flags, strings::dup("-Wl,-dead_strip"));
+		if (ctx.libc) {
+			//append(flags, strings::dup("-Wl,--gc-sections"));
+			append(flags, strings::dup("-Wl,-no_pie"));
+		};
 		//} else {
 			////append(flags, strings::dup("--gc-sections"));
 			//append(flags, strings::dup("-dead_strip"));
@@ -152,9 +153,9 @@ fn get_flags(ctx: *context, t: *task) ([]str | error) = {
 	path::set(&buf, mod.path)?;
 	let test = ctx.test && t.idx == ctx.top;
 	test ||= path::trimprefix(&buf, os::getcwd()) is str && ctx.submods;
-	if (test) {
-		append(flags, strings::dup("-T"));
-	};
+	//if (test) {
+		//append(flags, strings::dup("-T"));
+	//};
 
 	for (let i = 0z; i < len(ctx.defines); i += 1) {
 		let ident = ctx.defines[i].ident;
@@ -262,9 +263,6 @@ fn get_args(ctx: *context, tmp: str, flags: []str, t: *task) []str = {
 		for (let i = 0z; i < len(ctx.mods); i += 1) {
 			let srcs = ctx.mods[i].srcs;
 			//for (let i = 0z; i < len(srcs.sc); i += 1) {
-				////if(strings::contains(srcs.sc[i], "stub.hare.sc")) {
-					////continue;
-				////};
 				//append(args, strings::dup("-T"));
 				//append(args, strings::dup(srcs.sc[i]));
 				//fmt::printf("-T {}\n", srcs.sc[i])!;
@@ -278,10 +276,10 @@ fn get_args(ctx: *context, tmp: str, flags: []str, t: *task) []str = {
 		// gc-sections again after enabling it in get_flags(); it looks
 		// like leaving this enabled gets us SIGILL in libc (musl). this
 		// is not broken on other platforms such as OpenBSD
-		//if (ctx.libc) {
+		if (ctx.libc) {
 			//append(args, strings::dup("-Wl,--no-gc-sections"));
-			//append(args, strings::dup("-Wl,-dead_strip"));
-		//};
+			append(args, strings::dup("-Wl,-no_pie"));
+		};
 		for (let i = 0z; i < len(ctx.libs); i += 1) {
 			append(args, strings::dup("-l"));
 			append(args, strings::dup(ctx.libs[i]));

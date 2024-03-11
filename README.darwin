@@ -8,7 +8,6 @@
 export HARECACHE=~/.cache/hare
 export HAREC_SRC=~/Hares/harec
 export QBE=$HAREC_SRC/rt/+darwin/qbe.sh
-export PATH=${PATH}:~/SDK/Hares/hare/bin
 
 ln -sf configs/darwin.mk config.mk
 
