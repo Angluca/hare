@@ -1,7 +1,6 @@
 config.mk
-cache
-bin
 *.1
 *.5
 docs/html
 .bin/
+cache/
