@@ -4,15 +4,16 @@
 # Download the file from ftp://ftp.boulder.nist.gov/pub/time/leap-seconds.list,
 # and move it to /var/db/ntpd.leap-seconds.list
 
-# TMPDIR # not need change
+# The default values are shown in the table below;
+# Note that certain options need to be synchronously modified elsewhere.
 export HARECACHE=~/.cache/hare
 export HAREC_SRC=~/Hares/harec
 export QBE=$HAREC_SRC/rt/+darwin/qbe.sh
 
 ln -sf configs/darwin.mk config.mk
 
-./scripts/genbootstrap
-# make bootstrap
+# ./scripts/genbootstrap
+make bootstrap
 
 make
 make check

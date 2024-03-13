@@ -13,15 +13,13 @@ HAREFLAGS =
 HARECFLAGS =
 QBEFLAGS =
 ASFLAGS =
-# LDLINKFLAGS = --gc-sections -z noexecstack
-#LDLINKFLAGS = -dead_strip
-LDLINKFLAGS =
+LDLINKFLAGS = -dead_strip
+LDFLAGS = -dead_strip
 
 # commands used by the build script
 HAREC = harec
 QBE = $(HAREC_SRC)/rt/+darwin/qbe.sh
 AS =  $(HAREC_SRC)/rt/+darwin/as.sh
-#CC = /usr/bin/cc
 CC = $(HAREC_SRC)/rt/+darwin/cc.sh
 LD =  $(HAREC_SRC)/rt/+darwin/ld.sh
 SCDOC = scdoc
